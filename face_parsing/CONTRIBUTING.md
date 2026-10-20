@@ -87,7 +87,9 @@ make version/set v=1.2.3
    make version/major   # 1.2.3 → 2.0.0
    ```
 
-3. Run **Actions > Version Publish** on `main`. This creates and pushes the version tag (e.g. `v1.2.3`), updates the `stable` tag, and creates a GitHub release with auto-generated release notes.
+3. Run **Actions > Version Publish** on `main`. This creates and pushes the version tag (e.g. `face-parsing-v1.2.3`), updates the `face-parsing-stable` tag, and creates a GitHub release with auto-generated release notes.
+
+Tags are prefixed with the library name because the repository holds several libraries. The prefix is set by `TAG_PREFIX` in the Makefile. Use `make version/tag` to print the tag for the current version.
 
 ### Patch Release
 
@@ -96,8 +98,8 @@ To release a fix without including all commits on `main`, use a release branch:
 1. Create a branch from the tag you want to patch:
 
    ```bash
-   git checkout -b release/v0.50 v0.50.0
-   git push -u origin release/v0.50
+   git checkout -b release/face-parsing-v0.50 face-parsing-v0.50.0
+   git push -u origin release/face-parsing-v0.50
    ```
 
 2. Cherry-pick the fix commit(s) you want to include:
@@ -107,6 +109,6 @@ To release a fix without including all commits on `main`, use a release branch:
    git push
    ```
 
-3. Run **Actions > Version Bump (Patch)** and set the branch to `release/v0.50`.
+3. Run **Actions > Version Bump (Patch)** and set the branch to `release/face-parsing-v0.50`.
 
 4. Run **Actions > Version Publish** and set the branch to `release/v0.50`.

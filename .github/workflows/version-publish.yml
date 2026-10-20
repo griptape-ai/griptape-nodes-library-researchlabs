@@ -23,12 +23,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Get current version
+      - name: Get release tag
         id: version
         run: |
-          VERSION=$(make version/get)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Publishing version: $VERSION"
+          TAG=$(make version/tag)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Publishing tag: $TAG"
 
       - name: Publish tags
         run: make version/publish
@@ -38,8 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.version.outputs.version }}
-          name: v${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
           generate_release_notes: true
           make_latest: true
           prerelease: false

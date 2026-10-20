@@ -2,6 +2,8 @@ SHELL := /bin/bash
 
 LIBRARY_JSON := griptape_nodes_library_face_parsing/griptape-nodes-library.json
 PYPROJECT := pyproject.toml
+# The repo holds several libraries, so tags are namespaced per library.
+TAG_PREFIX := face-parsing-
 
 .PHONY: version/get
 version/get: ## Get version.
@@ -59,14 +61,18 @@ version/commit: ## Commit version.
 	@git add $(LIBRARY_JSON) $(PYPROJECT)
 	@git commit -m "chore: bump v$$($(MAKE) --no-print-directory version/get)"
 
+.PHONY: version/tag
+version/tag: ## Print the release tag for this version, e.g. face-parsing-v1.2.3.
+	@echo "$(TAG_PREFIX)v$$($(MAKE) --no-print-directory version/get)"
+
 .PHONY: version/publish
 version/publish: ## Create and push git tags.
 	@git fetch --tags --force
-	@VERSION=$$($(MAKE) --no-print-directory version/get); \
-	git tag "v$$VERSION"; \
-	git tag stable -f; \
-	git push origin "v$$VERSION"; \
-	git push -f origin stable
+	@TAG=$$($(MAKE) --no-print-directory version/tag); \
+	git tag "$$TAG"; \
+	git tag "$(TAG_PREFIX)stable" -f; \
+	git push origin "$$TAG"; \
+	git push -f origin "$(TAG_PREFIX)stable"
 
 .PHONY: deps/sync
 deps/sync: ## Sync pip_dependencies in the library JSON from pyproject.toml.
