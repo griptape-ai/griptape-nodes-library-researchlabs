@@ -1,0 +1,53 @@
+{
+    "name": "Griptape Nodes Face Parsing Library",
+    "library_schema_version": "0.14.0",
+    "advanced_library_path": "face_parsing_library_advanced.py",
+    "metadata": {
+        "author": "Griptape, Inc.",
+        "description": "Face parsing with BiSeNet. Build masks of face parts such as skin, eyes, lips, hair and clothing from a face image.",
+        "library_version": "0.1.0",
+        "engine_version": "0.104.1",
+        "tags": [
+            "Griptape",
+            "AI",
+            "Image",
+            "Segmentation",
+            "Face"
+        ],
+        "dependencies": {
+            "pip_dependencies": [
+                "torch",
+                "torchvision",
+                "numpy",
+                "pillow",
+                "huggingface_hub"
+            ],
+            "pip_install_flags": [
+                "--preview",
+                "--torch-backend=auto"
+            ]
+        }
+    },
+    "categories": [
+        {
+            "image": {
+                "color": "border-purple-500",
+                "title": "Image",
+                "description": "Face parsing and segmentation nodes",
+                "icon": "Image"
+            }
+        }
+    ],
+    "nodes": [
+        {
+            "class_name": "FaceParsing",
+            "file_path": "face_parsing.py",
+            "metadata": {
+                "category": "image",
+                "description": "Segment a face with BiSeNet and create a black and white mask of the parts you select, such as skin, hair or lips. Also outputs a color overlay that previews every detected part.",
+                "display_name": "Face Parsing",
+                "group": "mask"
+            }
+        }
+    ]
+}
