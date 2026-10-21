@@ -1,0 +1,45 @@
+name: Version Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: face_parsing
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get release tag
+        id: version
+        run: |
+          TAG=$(make version/tag)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Publishing tag: $TAG"
+
+      - name: Publish tags
+        run: make version/publish
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
+          generate_release_notes: true
+          make_latest: true
+          prerelease: false
