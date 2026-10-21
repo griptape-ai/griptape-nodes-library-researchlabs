@@ -119,4 +119,4 @@ The model was trained on aligned, cropped faces and works best on a single, fron
 
 ## License
 
-This library is provided under the Apache License 2.0. The bundled face-parsing.PyTorch submodule is subject to its own license: MIT.
+This library is provided under the Apache License 2.0. The bundled face-parsing.PyTorch submodule is subject to its own license: MIT. The upstream license text and the notes on the model weights are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
