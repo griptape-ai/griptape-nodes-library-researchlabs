@@ -14,4 +14,4 @@ Each library folder is self-contained, with its own `pyproject.toml`, `Makefile`
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE). Each library's README notes any bundled third-party code and its license.
+Apache License 2.0. See [LICENSE](LICENSE). Each library's folder has a `THIRD_PARTY_NOTICES.md` for any bundled third-party code, its license, and the terms of any downloaded model weights.
